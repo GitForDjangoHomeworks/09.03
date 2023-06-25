@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+    
+
+
+    
+
+
+    
+{% for article in  articles %}
+
+    <span class="border border-success">Автор : {{ article.author }}</span>
+
+    {% with date=article.updated_at|date:'d-M-Y' %}
+
+    
+    <span class="border border-warning" >Дата : {{ date }}</span>
+    
+    {% endwith %}
+    <h3>{{ article }}</h3>
+    <a class="btn btn-primary" href="{% url 'articles:articles_view' article.pk %}">Читать</a>
+    
+    {% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'articles:articles_update' article.pk %}">Изменить</a>
+    <a class="btn btn-primary" href="{% url 'articles:articles_delete' article.pk %}">Удалить</a>
+    
+    
+    {% endif %}
+{% empty %}
+    <h2>Sorry there are no articles</h2>
+{% endfor %}
+
+{% endblock content %}
+    
